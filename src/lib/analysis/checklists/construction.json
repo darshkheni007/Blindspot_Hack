@@ -1,0 +1,255 @@
+[
+  {
+    "id": "permits",
+    "label": "Permits and approvals",
+    "group": "regulatory",
+    "anchors": [
+      "build",
+      "construct",
+      "site",
+      "excavat",
+      "foundation",
+      "demolition",
+      "extension"
+    ],
+    "keywords": [
+      "permit",
+      "approval",
+      "planning consent",
+      "building control",
+      "noc",
+      "inspection",
+      "certificate",
+      "licen"
+    ],
+    "title": "Work on site (“{anchor}”) is scheduled, but permits and inspection approvals are not mentioned",
+    "why": "Work started without the right permits can be stopped and must sometimes be undone. Approval lead times often exceed what the schedule assumes.",
+    "question": "Which permits and inspections are required before “{anchor}”, and what is the lead time for each?",
+    "owner": "Project manager",
+    "nextStep": "List every permit and inspection with owner and lead time, and put them on the schedule ahead of the dependent work.",
+    "disproof": "A permit, consent or inspection list covering the “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Stop-work orders and re-work",
+      "irreversibility": "Work built without approval may need demolition",
+      "cost": "Mostly administration"
+    }
+  },
+  {
+    "id": "ground",
+    "label": "Ground conditions / site survey",
+    "group": "design",
+    "anchors": [
+      "foundation",
+      "excavat",
+      "piling",
+      "basement",
+      "earthworks"
+    ],
+    "keywords": [
+      "geotechnical",
+      "soil investigation",
+      "ground conditions",
+      "borehole",
+      "site survey",
+      "topographic",
+      "contamination"
+    ],
+    "title": "The documents mention “{anchor}”:  is planned but no ground investigation or site survey is referenced",
+    "why": "Unexpected ground conditions are among the largest causes of cost overrun. Survey results should shape the design, not follow it.",
+    "question": "What do the soil and site surveys say about “{anchor}”, and has the design been checked against them?",
+    "owner": "Structural engineer",
+    "nextStep": "Commission or locate the geotechnical report and confirm the foundation design uses it.",
+    "disproof": "A geotechnical, soil or site-survey report referenced in the plan or budget.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 5,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Redesign and large cost increases",
+      "irreversibility": "Foundations cannot be changed after the pour",
+      "cost": "Survey costs time and money but is standard"
+    }
+  },
+  {
+    "id": "weather",
+    "label": "Weather and seasonal delay",
+    "group": "schedule-budget",
+    "anchors": [
+      "concrete",
+      "roof",
+      "external",
+      "pour",
+      "outdoor",
+      "cladding",
+      "landscap",
+      "excavat"
+    ],
+    "keywords": [
+      "weather",
+      "monsoon",
+      "winter",
+      "seasonal",
+      "rain delay",
+      "contingency days",
+      "float"
+    ],
+    "title": "Outdoor work (“{anchor}”) is scheduled without allowing for weather or seasonal delay",
+    "why": "Weather-sensitive trades slip first and pull dependent work with them. Schedules without float turn each delay into a missed handover.",
+    "question": "How many weather days does the schedule allow for “{anchor}”, and what happens to later trades if they are used?",
+    "owner": "Site manager",
+    "nextStep": "Add weather float to outdoor activities and check the critical path with it included.",
+    "disproof": "Weather allowance, seasonal constraints or schedule float for the “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 3,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 4,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Delays cascade to dependent trades",
+      "irreversibility": "Lost days cannot be recovered",
+      "cost": "Only needs a schedule update"
+    }
+  },
+  {
+    "id": "contingency",
+    "label": "Contingency and change control",
+    "group": "schedule-budget",
+    "anchors": [
+      "budget",
+      "contract sum",
+      "fixed price",
+      "lump sum",
+      "tender",
+      "estimate"
+    ],
+    "keywords": [
+      "contingency",
+      "variation",
+      "change order",
+      "provisional sum",
+      "escalation",
+      "price adjustment",
+      "allowance"
+    ],
+    "title": "The budget (“{anchor}”) has no stated contingency or process for changes",
+    "why": "Construction costs move: variations, price rises and unknowns are normal. A budget without contingency forces mid-project funding conversations.",
+    "question": "What contingency is held against the “{anchor}”, who can release it, and how are variations approved?",
+    "owner": "Quantity surveyor / Cost manager",
+    "nextStep": "Add a contingency line (commonly sized to project risk) and write a variation approval rule.",
+    "disproof": "A contingency line, variation process or provisional sums in the budget or contract.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Budget shortfalls stop work",
+      "irreversibility": "Spent money cannot be recovered",
+      "cost": "One budget revision"
+    }
+  },
+  {
+    "id": "utilities",
+    "label": "Utility connections",
+    "group": "design",
+    "anchors": [
+      "power",
+      "water",
+      "sewer",
+      "grid",
+      "electric",
+      "gas",
+      "connection",
+      "drainage"
+    ],
+    "keywords": [
+      "utility",
+      "utilities survey",
+      "dno",
+      "service connection",
+      "diversion",
+      "capacity confirmation",
+      "supply agreement"
+    ],
+    "title": "The design needs a “{anchor}” supply but connection lead times and capacity are not covered",
+    "why": "Utility connections often take months and are outside the contractor's control. A late connection can idle a finished building.",
+    "question": "Has the utility provider confirmed capacity and a date for the “{anchor}” connection?",
+    "owner": "Services engineer",
+    "nextStep": "Apply for connections now and put the confirmed dates on the programme.",
+    "disproof": "A utility application, capacity confirmation or connection date.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 3,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Completed building cannot open",
+      "irreversibility": "Waiting time cannot be compressed",
+      "cost": "Application is quick; lead time is the issue"
+    }
+  },
+  {
+    "id": "safety",
+    "label": "Site safety planning",
+    "group": "regulatory",
+    "anchors": [
+      "site",
+      "crane",
+      "scaffold",
+      "excavat",
+      "height",
+      "demolition",
+      "lifting"
+    ],
+    "keywords": [
+      "safety plan",
+      "risk assessment",
+      "method statement",
+      "rams",
+      "hse",
+      "cdm",
+      "permit to work",
+      "safety"
+    ],
+    "title": "Higher-risk work (“{anchor}”) is planned but no safety plan or method statement is referenced",
+    "why": "Safety failures carry human cost and legal exposure, and regulators can halt a site. Method statements must exist before the work starts.",
+    "question": "Where are the risk assessments and method statements for “{anchor}”, and who approves them?",
+    "owner": "Site safety officer",
+    "nextStep": "Collect method statements for each high-risk activity and confirm approval before mobilisation.",
+    "disproof": "A safety plan, risk assessment or method statement covering the “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 2,
+      "irreversibility": 5,
+      "proximity": 4,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Serious harm and work stoppage",
+      "irreversibility": "Incidents cannot be undone",
+      "cost": "Documentation effort only"
+    }
+  }
+]

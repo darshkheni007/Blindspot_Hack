@@ -1,0 +1,487 @@
+[
+  {
+    "id": "rollback",
+    "label": "Rollback / back-out plan",
+    "group": "launch-readiness",
+    "anchors": [
+      "cutover",
+      "go-live",
+      "go live",
+      "launch",
+      "release",
+      "deploy",
+      "switchover",
+      "migration"
+    ],
+    "keywords": [
+      "rollback",
+      "roll back",
+      "roll-back",
+      "back out",
+      "backout",
+      "fallback",
+      "fall back",
+      "revert",
+      "restore point"
+    ],
+    "title": "A “{anchor}” is planned, but nothing describes how to roll it back if it goes wrong",
+    "why": "Without an agreed way back, a failed “{anchor}” turns into an outage that lasts until someone improvises a fix. Rollback also decides how long the old system must stay available.",
+    "question": "If the “{anchor}” fails halfway, what is the exact procedure and decision point for going back, and who calls it?",
+    "owner": "Engineering lead",
+    "nextStep": "Write a one-page rollback runbook with a go/no-go checkpoint and the maximum time you will wait before reverting.",
+    "disproof": "A document, ticket or runbook that defines rollback or revert steps for the “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "A failed “{anchor}” with no way back is a full outage",
+      "irreversibility": "Data written after the switch may not be reversible",
+      "cost": "Mostly a planning exercise: a few hours of writing and a rehearsal"
+    }
+  },
+  {
+    "id": "data-validation",
+    "label": "Data migration validation",
+    "group": "data-integrity",
+    "anchors": [
+      "migrat",
+      "data load",
+      "import",
+      "legacy data",
+      "convert data",
+      "data conversion"
+    ],
+    "keywords": [
+      "reconcil",
+      "validate",
+      "validation",
+      "checksum",
+      "row count",
+      "record count",
+      "parity check",
+      "sample check",
+      "data quality"
+    ],
+    "title": "Data is being moved (“{anchor}”) but no step checks that what arrived matches what left",
+    "why": "Silent data loss or corruption is usually discovered weeks later, when reports disagree or customers complain. Reconciliation has to be designed in before the move, not after.",
+    "question": "How will you prove that every record and total in the new system matches the old one before cutover?",
+    "owner": "Data / migration lead",
+    "nextStep": "Define reconciliation checks (record counts, financial totals, sampled records) and the acceptance threshold for each.",
+    "disproof": "A reconciliation, validation or parity-check step tied to the “{anchor}”.",
+    "category": "DATA_ISSUE",
+    "factors": {
+      "impact": 5,
+      "likelihood": 4,
+      "irreversibility": 4,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Corrupted or missing records can reach customers and finance",
+      "irreversibility": "Bad data that has been used downstream is very hard to unwind",
+      "cost": "A few scripted checks and a sign-off rule"
+    }
+  },
+  {
+    "id": "load-testing",
+    "label": "Load and performance testing",
+    "group": "launch-readiness",
+    "anchors": [
+      "concurrent",
+      "peak",
+      "traffic",
+      "throughput",
+      "latency",
+      "scale",
+      "users per",
+      "requests per",
+      "sla"
+    ],
+    "keywords": [
+      "load test",
+      "performance test",
+      "stress test",
+      "capacity test",
+      "benchmark",
+      "soak test",
+      "load testing",
+      "performance testing"
+    ],
+    "title": "The documents state a scale target (“{anchor}”) but never plan a load or performance test",
+    "why": "Performance targets that are never tested tend to fail on launch day, when fixes are most expensive and most visible.",
+    "question": "Which test will show the system meets the stated scale target, and when is it scheduled?",
+    "owner": "QA / performance lead",
+    "nextStep": "Add a load-test milestone before go-live, with target numbers taken from the stated requirement.",
+    "disproof": "A test plan, milestone or ticket for load, stress or performance testing.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 3,
+      "proximity": 4,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Slow or failing system at launch",
+      "irreversibility": "Architecture changes late in the project are costly",
+      "cost": "Needs test environment and tooling, but is routine"
+    }
+  },
+  {
+    "id": "security-review",
+    "label": "Security review",
+    "group": "compliance",
+    "anchors": [
+      "authentication",
+      "login",
+      "sso",
+      "personal data",
+      "customer data",
+      "payment",
+      "pii",
+      "api",
+      "password"
+    ],
+    "keywords": [
+      "pen test",
+      "penetration",
+      "security review",
+      "threat model",
+      "vulnerability",
+      "vapt",
+      "security audit",
+      "owasp",
+      "security assessment"
+    ],
+    "title": "The system handles “{anchor}”, but no security review or penetration test is planned",
+    "why": "Systems that touch credentials, personal data or payments attract the most scrutiny. Findings discovered after launch can force emergency changes or disclosure.",
+    "question": "Who will review the “{anchor}” handling for security issues before launch, and what would block the release?",
+    "owner": "Security lead / CTO",
+    "nextStep": "Schedule a threat-modelling session now and an external penetration test before go-live.",
+    "disproof": "A security review, threat model or penetration-test plan covering the “{anchor}” handling.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "A breach or audit failure is existential for trust",
+      "irreversibility": "Disclosure and incident response cannot be undone",
+      "cost": "Needs budget for an external test and a few days to fix issues"
+    }
+  },
+  {
+    "id": "monitoring",
+    "label": "Monitoring and alerting",
+    "group": "launch-readiness",
+    "anchors": [
+      "production",
+      "go-live",
+      "go live",
+      "launch",
+      "uptime",
+      "sla",
+      "24/7"
+    ],
+    "keywords": [
+      "monitoring",
+      "alerting",
+      "observability",
+      "on-call",
+      "on call",
+      "pager",
+      "slo",
+      "dashboards",
+      "metrics",
+      "logging"
+    ],
+    "title": "Going to production (“{anchor}”) is planned, but nothing says how failures will be detected",
+    "why": "Without monitoring, the first sign of a problem is a customer complaint. Alert thresholds and on-call ownership have to exist before launch.",
+    "question": "What will tell the team within minutes that something is wrong after “{anchor}”, and who gets paged?",
+    "owner": "Engineering lead / SRE",
+    "nextStep": "List the 5-10 signals that matter, set alert thresholds, and name the on-call owner for the first two weeks.",
+    "disproof": "A monitoring, alerting, logging or on-call plan for the production system.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Outages last longer and cost more",
+      "irreversibility": "Detection gaps can be fixed later, but damage before detection cannot",
+      "cost": "Standard tooling; a few days"
+    }
+  },
+  {
+    "id": "backup-dr",
+    "label": "Backup and disaster recovery",
+    "group": "launch-readiness",
+    "anchors": [
+      "database",
+      "production",
+      "data store",
+      "customer data",
+      "records"
+    ],
+    "keywords": [
+      "backup",
+      "disaster recovery",
+      "rpo",
+      "rto",
+      "restore",
+      "replication",
+      "failover",
+      "dr plan"
+    ],
+    "title": "The plan depends on a production data store (“{anchor}”) but never mentions backups or recovery targets",
+    "why": "If data is lost or corrupted, the only protection is a backup that has actually been restored. Recovery time and acceptable data loss (RPO/RTO) are business decisions.",
+    "question": "How much data can the business afford to lose and how fast must service return, and has a restore been tested?",
+    "owner": "Engineering lead / Infrastructure",
+    "nextStep": "Agree RPO and RTO with the business owner and schedule a restore test before launch.",
+    "disproof": "A backup, restore, RPO/RTO or disaster-recovery statement.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 2,
+      "irreversibility": 5,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Permanent data loss ends the product",
+      "irreversibility": "A lost dataset cannot be recreated",
+      "cost": "Mostly configuration plus one restore drill"
+    }
+  },
+  {
+    "id": "training",
+    "label": "Training and change management",
+    "group": "people-adoption",
+    "anchors": [
+      "users",
+      "staff",
+      "operators",
+      "support team",
+      "customers",
+      "adoption",
+      "rollout",
+      "employees"
+    ],
+    "keywords": [
+      "training",
+      "onboarding",
+      "user guide",
+      "change management",
+      "enablement",
+      "comms plan",
+      "communication plan",
+      "documentation for users",
+      "handbook"
+    ],
+    "title": "People will have to change how they work (“{anchor}”), but no training or adoption plan appears",
+    "why": "New systems fail through low adoption as often as through bugs. Training and communication need lead time that rarely fits at the end of a schedule.",
+    "question": "Who needs to learn what before “{anchor}”, how will they be trained, and who answers questions in the first month?",
+    "owner": "Product / change manager",
+    "nextStep": "List the affected roles, draft a training and communications plan, and reserve time for it before go-live.",
+    "disproof": "A training, enablement or communications plan for the “{anchor}”.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 3,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Low adoption wastes the investment",
+      "irreversibility": "Habits that form around workarounds are hard to reverse",
+      "cost": "Mostly scheduling and content creation"
+    }
+  },
+  {
+    "id": "privacy",
+    "label": "Privacy and data protection",
+    "group": "compliance",
+    "anchors": [
+      "personal data",
+      "customer data",
+      "user data",
+      "pii",
+      "gdpr",
+      "dpdp",
+      "email addresses",
+      "health"
+    ],
+    "keywords": [
+      "gdpr",
+      "dpia",
+      "privacy",
+      "data protection",
+      "consent",
+      "retention",
+      "data residency",
+      "dpdp",
+      "hipaa",
+      "anonymi"
+    ],
+    "title": "The project processes “{anchor}”, but retention, consent and legal basis are not addressed",
+    "why": "Privacy obligations attach to the data, not the project. Gaps surface in audits or customer due-diligence and can block launch in some markets.",
+    "question": "What is the legal basis, retention period and data location for the “{anchor}”, and who signed it off?",
+    "owner": "Legal / DPO",
+    "nextStep": "Run a short data-protection impact check and record the answers in the project documents.",
+    "disproof": "A privacy, retention, consent or data-protection section covering the “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Fines, blocked launches and lost enterprise deals",
+      "irreversibility": "Data already collected without basis is difficult to remediate",
+      "cost": "Needs legal input; weeks rather than days"
+    }
+  },
+  {
+    "id": "vendor-exit",
+    "label": "Vendor and licence exit terms",
+    "group": "schedule-budget",
+    "anchors": [
+      "vendor",
+      "licen",
+      "contract",
+      "third-party",
+      "third party",
+      "saas",
+      "subscription",
+      "supplier"
+    ],
+    "keywords": [
+      "exit",
+      "termination",
+      "data export",
+      "escrow",
+      "renewal",
+      "notice period",
+      "transition assistance",
+      "lock-in"
+    ],
+    "title": "The plan relies on a “{anchor}” but no exit, renewal or data-export terms are mentioned",
+    "why": "Contract dates and exit terms often drive the real schedule. Missing a notice period can mean paying for a system you have already replaced.",
+    "question": "What are the notice period, renewal date and data-export rights in the “{anchor}”, and do they fit the project timeline?",
+    "owner": "Procurement / Legal",
+    "nextStep": "Pull the renewal and notice dates from the contract and put them on the project timeline.",
+    "disproof": "A contract clause, date or note about exit, renewal or export for the “{anchor}”.",
+    "category": "QUESTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Unplanned spend or loss of access to data",
+      "irreversibility": "Auto-renewals commit money immediately",
+      "cost": "One read of the contract"
+    }
+  },
+  {
+    "id": "handover",
+    "label": "Support handover and hypercare",
+    "group": "launch-readiness",
+    "anchors": [
+      "go-live",
+      "go live",
+      "launch",
+      "production",
+      "handover",
+      "cutover"
+    ],
+    "keywords": [
+      "runbook",
+      "handover",
+      "hypercare",
+      "support rota",
+      "escalation",
+      "support model",
+      "l1",
+      "l2",
+      "service desk"
+    ],
+    "title": "After “{anchor}” someone has to run the system, but no runbook, support model or hypercare period is defined",
+    "why": "The team that builds a system is rarely the team that supports it. Without a handover, the first incidents land on whoever is nearest.",
+    "question": "Who owns incidents after “{anchor}”, what do they need to know, and how long does the project team stay on call?",
+    "owner": "Delivery manager",
+    "nextStep": "Define the support model, write a runbook, and plan 2-4 weeks of hypercare.",
+    "disproof": "A runbook, handover, hypercare or support-model description for after “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 3,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Slow incident response in the first weeks",
+      "irreversibility": "Reputation damage is hard to repair",
+      "cost": "A short workshop and a document"
+    }
+  },
+  {
+    "id": "feature-parity",
+    "label": "Feature parity with the system being replaced",
+    "group": "scope",
+    "anchors": [
+      "replace",
+      "replacement",
+      "legacy",
+      "existing system",
+      "migrate from",
+      "retire",
+      "decommission"
+    ],
+    "keywords": [
+      "parity",
+      "feature inventory",
+      "gap analysis",
+      "traceability",
+      "deprecated",
+      "out of scope features",
+      "feature mapping"
+    ],
+    "title": "The plan replaces or retires an existing system (“{anchor}”), but no inventory says which features must be kept",
+    "why": "Legacy systems carry undocumented behaviour that users depend on. Unlisted features are found after cutover, when users cannot work.",
+    "question": "Which behaviours of the existing system are still used, and which will be dropped on purpose?",
+    "owner": "Business analyst",
+    "nextStep": "Inventory features and reports in use (from logs and interviews) and mark each keep, change or drop.",
+    "disproof": "A feature inventory, parity matrix or list of intentionally dropped features.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Users blocked on day one of the new system",
+      "irreversibility": "Dropped features can be rebuilt but at emergency cost",
+      "cost": "Needs interviews and usage logs"
+    }
+  }
+]

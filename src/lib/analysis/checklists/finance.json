@@ -1,0 +1,247 @@
+[
+  {
+    "id": "regulatory",
+    "label": "Regulatory licences and compliance",
+    "group": "regulatory",
+    "anchors": [
+      "customers",
+      "payment",
+      "lending",
+      "kyc",
+      "trading",
+      "deposit",
+      "investment"
+    ],
+    "keywords": [
+      "regulator",
+      "rbi",
+      "sebi",
+      "sec",
+      "fca",
+      "compliance",
+      "licen",
+      "aml",
+      "kyc"
+    ],
+    "title": "The product handles “{anchor}”, but the regulatory licence or compliance sign-off is not referenced",
+    "why": "Financial products need the right licences before launch. Operating without one can end the business.",
+    "question": "Which licence or regulatory approval covers “{anchor}”, and what is its status against the launch date?",
+    "owner": "Compliance officer",
+    "nextStep": "Confirm the licence position in writing and add approval dates to the plan.",
+    "disproof": "A licence, regulator approval or compliance sign-off covering “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 5,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Enforcement action or shutdown",
+      "irreversibility": "Penalties cannot be undone",
+      "cost": "Needs counsel"
+    }
+  },
+  {
+    "id": "reconciliation",
+    "label": "Reconciliation and controls",
+    "group": "data-integrity",
+    "anchors": [
+      "transaction",
+      "ledger",
+      "settlement",
+      "payment",
+      "payout",
+      "balance"
+    ],
+    "keywords": [
+      "reconcil",
+      "double entry",
+      "maker-checker",
+      "maker checker",
+      "audit trail",
+      "segregation of duties",
+      "control"
+    ],
+    "title": "The documents mention “{anchor}”, but no reconciliation or control step is described",
+    "why": "Without reconciliation, differences between systems are found by customers or auditors.",
+    "question": "How is every “{anchor}” matched against the bank or ledger, and who investigates breaks?",
+    "owner": "Finance operations lead",
+    "nextStep": "Define daily reconciliation, tolerance rules and an owner for exceptions.",
+    "disproof": "A reconciliation process or control description for “{anchor}”.",
+    "category": "DATA_ISSUE",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Unexplained balances and audit findings",
+      "irreversibility": "Posted errors need manual correction",
+      "cost": "A process definition"
+    }
+  },
+  {
+    "id": "fraud",
+    "label": "Fraud and abuse controls",
+    "group": "compliance",
+    "anchors": [
+      "payment",
+      "onboarding",
+      "credit",
+      "lending",
+      "wallet",
+      "transfer"
+    ],
+    "keywords": [
+      "fraud",
+      "chargeback",
+      "risk model",
+      "velocity",
+      "aml screening",
+      "abuse"
+    ],
+    "title": "The documents mention “{anchor}”, but no fraud or abuse controls are mentioned",
+    "why": "New financial flows are targeted quickly. Fraud losses and chargebacks fall on the company.",
+    "question": "What stops fraudulent “{anchor}”, and what loss level is acceptable?",
+    "owner": "Risk officer",
+    "nextStep": "Draft a fraud threat list and basic limits and monitoring before launch.",
+    "disproof": "A fraud, chargeback or abuse-control section covering “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Direct financial loss",
+      "irreversibility": "Lost funds are rarely recovered",
+      "cost": "Rules are cheap, models are not"
+    }
+  },
+  {
+    "id": "sensitivity",
+    "label": "Rate and currency sensitivity",
+    "group": "schedule-budget",
+    "anchors": [
+      "interest",
+      "currency",
+      "forex",
+      "usd",
+      "eur",
+      "loan",
+      "rate"
+    ],
+    "keywords": [
+      "sensitivity",
+      "scenario",
+      "stress test",
+      "hedg",
+      "fx risk",
+      "rate shock"
+    ],
+    "title": "The model depends on “{anchor}”, but no sensitivity or scenario analysis is included",
+    "why": "Plans built on a single rate or exchange assumption break when it moves.",
+    "question": "What happens to the numbers if “{anchor}” moves against you by a realistic amount?",
+    "owner": "Finance lead",
+    "nextStep": "Add a simple downside scenario to the financial model.",
+    "disproof": "A sensitivity analysis or scenario table for “{anchor}”.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Margin collapse",
+      "irreversibility": "Committed contracts cannot be repriced",
+      "cost": "A spreadsheet tab"
+    }
+  },
+  {
+    "id": "retention",
+    "label": "Record keeping and audit trail",
+    "group": "compliance",
+    "anchors": [
+      "records",
+      "statements",
+      "reports",
+      "audit",
+      "ledger"
+    ],
+    "keywords": [
+      "retention",
+      "archiv",
+      "audit log",
+      "record keeping",
+      "7 years",
+      "seven years"
+    ],
+    "title": "The documents mention “{anchor}”, but retention periods and audit logging are not specified",
+    "why": "Regulators expect records to be retained and retrievable for set periods.",
+    "question": "How long are “{anchor}” kept, where, and how are they retrieved for an audit?",
+    "owner": "Compliance officer",
+    "nextStep": "Specify retention periods and audit logging in the requirements.",
+    "disproof": "A retention period, archive or audit-log requirement for “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 3,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 2,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Audit failures",
+      "irreversibility": "Deleted records cannot be recreated",
+      "cost": "Requirements update"
+    }
+  },
+  {
+    "id": "failure-handling",
+    "label": "Failed settlement handling",
+    "group": "launch-readiness",
+    "anchors": [
+      "settlement",
+      "payout",
+      "batch",
+      "cut-off",
+      "cutoff",
+      "end of day"
+    ],
+    "keywords": [
+      "failure",
+      "retry",
+      "idempotent",
+      "reversal",
+      "dead letter",
+      "exception queue"
+    ],
+    "title": "The documents mention “{anchor}”, but what happens when it fails halfway is not described",
+    "why": "Partial failures create duplicate or missing payments. Recovery rules must exist before the first real run.",
+    "question": "If “{anchor}” fails halfway, how is it retried without paying twice?",
+    "owner": "Engineering lead",
+    "nextStep": "Define idempotency and exception handling for each step.",
+    "disproof": "A failure, retry, reversal or exception-handling description for “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Duplicate or lost payments",
+      "irreversibility": "Money moved cannot be pulled back easily",
+      "cost": "Design work"
+    }
+  }
+]

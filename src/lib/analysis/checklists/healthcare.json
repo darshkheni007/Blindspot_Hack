@@ -1,0 +1,255 @@
+[
+  {
+    "id": "clinical-safety",
+    "label": "Clinical safety case",
+    "group": "regulatory",
+    "anchors": [
+      "patient",
+      "clinical",
+      "diagnos",
+      "treatment",
+      "clinician",
+      "medication",
+      "dosage"
+    ],
+    "keywords": [
+      "clinical safety",
+      "hazard log",
+      "clinical validation",
+      "risk management file",
+      "iso 14971",
+      "dcb0129",
+      "safety case",
+      "clinical evaluation"
+    ],
+    "title": "The product affects “{anchor}”, but no clinical safety assessment or hazard log is referenced",
+    "why": "Health software can harm patients through wrong, late or missing information. Regulators and hospital buyers expect a documented hazard analysis.",
+    "question": "Who has assessed the clinical hazards around “{anchor}”, and where is the hazard log?",
+    "owner": "Clinical safety officer",
+    "nextStep": "Start a hazard log now and agree the clinical safety sign-off owner.",
+    "disproof": "A clinical safety case, hazard log or risk-management file.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 5,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Patient harm and regulatory action",
+      "irreversibility": "Harm cannot be reversed",
+      "cost": "Needs clinical input but is well-defined"
+    }
+  },
+  {
+    "id": "consent-privacy",
+    "label": "Patient data consent and privacy",
+    "group": "compliance",
+    "anchors": [
+      "patient data",
+      "health record",
+      "phi",
+      "personal data",
+      "medical record",
+      "ehr",
+      "emr"
+    ],
+    "keywords": [
+      "hipaa",
+      "consent",
+      "dpdp",
+      "gdpr",
+      "anonymi",
+      "de-identif",
+      "data protection",
+      "privacy"
+    ],
+    "title": "The documents mention “{anchor}”, but consent, anonymisation and access rules are not described",
+    "why": "Health data has the strictest privacy rules. Consent gaps can invalidate data collected and block use in research or sales.",
+    "question": "What consent covers the “{anchor}”, who can access it, and how is it de-identified for secondary use?",
+    "owner": "Privacy officer",
+    "nextStep": "Document the consent model and access roles, and review them with legal before collecting data.",
+    "disproof": "A consent, anonymisation or data-protection section covering “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 5,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Legal exposure and loss of trust",
+      "irreversibility": "Data collected without consent may have to be deleted",
+      "cost": "Needs legal review"
+    }
+  },
+  {
+    "id": "regulatory",
+    "label": "Regulatory approval pathway",
+    "group": "regulatory",
+    "anchors": [
+      "device",
+      "software as a medical device",
+      "samd",
+      "drug",
+      "trial",
+      "diagnos",
+      "clinical use"
+    ],
+    "keywords": [
+      "cdsco",
+      "fda",
+      "ce mark",
+      "mdr",
+      "regulatory approval",
+      "510(k)",
+      "ethics committee",
+      "irb",
+      "classification"
+    ],
+    "title": "The product is positioned for “{anchor}”, but no regulatory classification or approval path is stated",
+    "why": "Regulatory approval can take longer than development and dictates documentation from day one.",
+    "question": "Which regulatory class applies to “{anchor}” and what is the approval timeline against the launch date?",
+    "owner": "Regulatory affairs",
+    "nextStep": "Confirm the classification with a regulatory specialist and add approval milestones to the plan.",
+    "disproof": "A regulatory classification, approval plan or submission timeline.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Cannot legally launch",
+      "irreversibility": "Re-design to meet classification is costly",
+      "cost": "Needs a specialist opinion"
+    }
+  },
+  {
+    "id": "interop",
+    "label": "System interoperability",
+    "group": "design",
+    "anchors": [
+      "ehr",
+      "emr",
+      "his",
+      "hospital system",
+      "integration",
+      "hl7",
+      "lab system"
+    ],
+    "keywords": [
+      "hl7",
+      "fhir",
+      "interoperab",
+      "dicom",
+      "integration spec",
+      "api contract",
+      "interface agreement"
+    ],
+    "title": "Integration with “{anchor}” is assumed, but no interface standard or agreement is mentioned",
+    "why": "Hospital systems rarely integrate cleanly. Unplanned interface work is a common source of delay.",
+    "question": "Which interface standard and owner cover the “{anchor}” integration, and has the other side agreed?",
+    "owner": "Integration lead",
+    "nextStep": "Get written interface specifications and a named technical contact from the other system.",
+    "disproof": "An interface specification, standard (HL7/FHIR) or integration agreement for “{anchor}”.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Delays and unplanned scope",
+      "irreversibility": "Late changes ripple across systems",
+      "cost": "Needs cooperation from other vendors"
+    }
+  },
+  {
+    "id": "downtime",
+    "label": "Downtime procedures",
+    "group": "launch-readiness",
+    "anchors": [
+      "ward",
+      "emergency",
+      "icu",
+      "clinic",
+      "bedside",
+      "24/7",
+      "round the clock"
+    ],
+    "keywords": [
+      "downtime",
+      "business continuity",
+      "fallback procedure",
+      "manual process",
+      "contingency",
+      "paper"
+    ],
+    "title": "Use in “{anchor}” is planned, but no downtime or manual fallback procedure is described",
+    "why": "Clinical work cannot stop when software does. Teams need a rehearsed manual process.",
+    "question": "What do staff in “{anchor}” do when the system is unavailable, and have they practised it?",
+    "owner": "Clinical operations lead",
+    "nextStep": "Write a one-page downtime procedure and rehearse it before go-live.",
+    "disproof": "A downtime, fallback or business-continuity procedure.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 5,
+      "likelihood": 3,
+      "irreversibility": 3,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Care delays and unsafe workarounds",
+      "irreversibility": "Incidents during downtime cannot be undone",
+      "cost": "A document and a drill"
+    }
+  },
+  {
+    "id": "clinical-training",
+    "label": "Clinician training and adoption",
+    "group": "people-adoption",
+    "anchors": [
+      "clinicians",
+      "nurses",
+      "doctors",
+      "staff",
+      "physicians",
+      "pharmacists"
+    ],
+    "keywords": [
+      "training",
+      "onboarding",
+      "competency",
+      "super user",
+      "adoption",
+      "change management"
+    ],
+    "title": "The documents mention “{anchor}”, but no training or adoption plan is described",
+    "why": "Clinicians have little time for new tools. Without training and local champions, usage drops and workarounds appear.",
+    "question": "How will “{anchor}” be trained, and who supports them on the ward in the first weeks?",
+    "owner": "Clinical lead",
+    "nextStep": "Plan role-based training and identify super-users per unit.",
+    "disproof": "A training, competency or adoption plan for “{anchor}”.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 3,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Low adoption",
+      "irreversibility": "Workarounds persist",
+      "cost": "Scheduling effort"
+    }
+  }
+]

@@ -1,0 +1,345 @@
+// Blindspot data model. Every tenant-owned row carries workspaceId; all reads/writes go through
+// src/lib/data/* which requires a workspaceId argument.
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Plan {
+  FREE
+  PRO
+  TEAM
+}
+
+enum MemberRole {
+  OWNER
+  MEMBER
+}
+
+enum Domain {
+  SOFTWARE
+  CONSTRUCTION
+  HEALTHCARE
+  FINANCE
+  DATA_ML
+  OTHER
+}
+
+enum Stage {
+  PROPOSAL
+  IN_PROGRESS
+  PRE_LAUNCH
+}
+
+enum DocStatus {
+  UPLOADING
+  PARSING
+  READY
+  FAILED
+}
+
+enum RunStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+enum FindingCategory {
+  ASSUMPTION
+  CONSTRAINT
+  QUESTION
+  CONTRADICTION
+  DATA_ISSUE
+}
+
+enum Confidence {
+  EVIDENCE_BACKED
+  INFERRED
+  PATTERN_BASED
+}
+
+enum Severity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum FindingStatus {
+  OPEN
+  ACCEPTED
+  REJECTED
+  DEFERRED
+  ALREADY_KNOWN
+}
+
+enum FeedbackKind {
+  USEFUL
+  NOT_USEFUL
+  WRONG
+  DUPLICATE
+}
+
+enum AssumptionStatus {
+  UNVALIDATED
+  VALIDATED
+  INVALID
+}
+
+enum QuestionStatus {
+  OPEN
+  ASKED
+  ANSWERED
+  DROPPED
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  name         String?
+  passwordHash String?
+  image        String?
+  createdAt    DateTime     @default(now())
+  memberships  Membership[]
+  comments     FindingComment[]
+  feedback     FindingFeedback[]
+}
+
+model Workspace {
+  id          String       @id @default(cuid())
+  name        String
+  plan        Plan         @default(FREE)
+  createdAt   DateTime     @default(now())
+  memberships Membership[]
+  projects    Project[]
+  usage       UsageEvent[]
+}
+
+model Membership {
+  id          String     @id @default(cuid())
+  userId      String
+  workspaceId String
+  role        MemberRole @default(OWNER)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+}
+
+model Project {
+  id             String         @id @default(cuid())
+  workspaceId    String
+  name           String
+  domain         Domain
+  stage          Stage
+  goal           String
+  deadline       DateTime?
+  budget         String?
+  teamSize       Int?
+  knownRisks     String?
+  weights        Json?
+  isSample       Boolean        @default(false)
+  lastAnalyzedAt DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  workspace      Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  documents      Document[]
+  runs           AnalysisRun[]
+  findings       Finding[]
+  assumptions    Assumption[]
+  questions      Question[]
+
+  @@index([workspaceId])
+}
+
+model Document {
+  id          String      @id @default(cuid())
+  workspaceId String
+  projectId   String
+  name        String
+  mimeType    String
+  ext         String
+  sizeBytes   Int
+  storageKey  String
+  contentHash String
+  docType     String      @default("Other")
+  status      DocStatus   @default(UPLOADING)
+  error       String?
+  pageCount   Int?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  project     Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  chunks      Chunk[]
+  caches      DetectorCache[]
+
+  @@index([workspaceId, projectId])
+}
+
+model Chunk {
+  id          String   @id @default(cuid())
+  workspaceId String
+  projectId   String
+  documentId  String
+  ordinal     Int
+  locator     String
+  text        String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId, ordinal])
+  @@index([workspaceId, projectId])
+}
+
+model AnalysisRun {
+  id            String    @id @default(cuid())
+  workspaceId   String
+  projectId     String
+  status        RunStatus @default(QUEUED)
+  step          String    @default("queued")
+  stepIndex     Int       @default(0)
+  provider      String
+  model         String
+  promptVersion String
+  docHashes     Json
+  stats         Json?
+  diff          Json?
+  error         String?
+  startedAt     DateTime  @default(now())
+  finishedAt    DateTime?
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, projectId])
+}
+
+model Finding {
+  id               String          @id @default(cuid())
+  workspaceId      String
+  projectId        String
+  runId            String
+  firstRunId       String
+  fingerprint      String
+  groupKey         String?
+  detector         String
+  title            String
+  category         FindingCategory
+  whyItMatters     String
+  evidence         Json
+  isAbsence        Boolean         @default(false)
+  checkedDocuments Json
+  confidence       Confidence
+  impact           Int
+  likelihood       Int
+  irreversibility  Int
+  proximity        Int
+  cost             Int
+  justifications   Json
+  priority         Int
+  previousPriority Int?
+  severity         Severity
+  disproof         String
+  question         String
+  owner            String
+  nextStep         String
+  status           FindingStatus   @default(OPEN)
+  statusReason     String?
+  active           Boolean         @default(true)
+  diffState        String          @default("NEW")
+  verifier         Json?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  project          Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  comments         FindingComment[]
+  feedback         FindingFeedback[]
+
+  @@unique([projectId, fingerprint])
+  @@index([workspaceId, projectId])
+}
+
+model FindingComment {
+  id          String   @id @default(cuid())
+  workspaceId String
+  findingId   String
+  userId      String
+  body        String
+  createdAt   DateTime @default(now())
+  finding     Finding  @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([findingId])
+}
+
+model FindingFeedback {
+  id          String       @id @default(cuid())
+  workspaceId String
+  findingId   String
+  userId      String
+  kind        FeedbackKind
+  createdAt   DateTime     @default(now())
+  finding     Finding      @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([findingId, userId])
+}
+
+model Assumption {
+  id            String           @id @default(cuid())
+  workspaceId   String
+  projectId     String
+  fingerprint   String
+  statement     String
+  sourceDoc     String
+  sourceLocator String
+  sourceQuote   String
+  riskIfFalse   String
+  status        AssumptionStatus @default(UNVALIDATED)
+  active        Boolean          @default(true)
+  createdAt     DateTime         @default(now())
+  project       Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, fingerprint])
+  @@index([workspaceId, projectId])
+}
+
+model Question {
+  id             String         @id @default(cuid())
+  workspaceId    String
+  projectId      String
+  fingerprint    String
+  text           String
+  suggestedOwner String
+  findingId      String?
+  status         QuestionStatus @default(OPEN)
+  active         Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, fingerprint])
+  @@index([workspaceId, projectId])
+}
+
+model DetectorCache {
+  id          String   @id @default(cuid())
+  workspaceId String
+  documentId  String
+  detector    String
+  key         String
+  payload     Json
+  createdAt   DateTime @default(now())
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, detector, key])
+}
+
+model UsageEvent {
+  id          String    @id @default(cuid())
+  workspaceId String
+  kind        String
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, kind, createdAt])
+}

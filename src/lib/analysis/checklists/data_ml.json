@@ -1,0 +1,249 @@
+[
+  {
+    "id": "data-quality",
+    "label": "Data quality and ground truth",
+    "group": "data-integrity",
+    "anchors": [
+      "model",
+      "training data",
+      "dataset",
+      "labels",
+      "labelled",
+      "labeled"
+    ],
+    "keywords": [
+      "data quality",
+      "labeling guideline",
+      "labelling guideline",
+      "inter-annotator",
+      "ground truth",
+      "label noise",
+      "validation set"
+    ],
+    "title": "A model will learn from the “{anchor}”, but how labels or data quality are verified is not described",
+    "why": "A model can only be as good as its labels. Unchecked label noise caps accuracy and produces confident wrong answers.",
+    "question": "Who labelled the “{anchor}”, how was agreement measured, and what error rate is acceptable?",
+    "owner": "ML lead",
+    "nextStep": "Sample and double-label part of the data to estimate label noise before training.",
+    "disproof": "A labelling guideline, agreement measure or data-quality check for the “{anchor}”.",
+    "category": "DATA_ISSUE",
+    "factors": {
+      "impact": 5,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 4,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Model is unreliable",
+      "irreversibility": "Models trained on bad data can mislead for months",
+      "cost": "Sampling and review"
+    }
+  },
+  {
+    "id": "evaluation",
+    "label": "Evaluation metrics and baseline",
+    "group": "design",
+    "anchors": [
+      "model",
+      "accuracy",
+      "prediction",
+      "classifier",
+      "recommend",
+      "forecast"
+    ],
+    "keywords": [
+      "baseline",
+      "precision",
+      "recall",
+      "f1",
+      "auc",
+      "holdout",
+      "evaluation metric",
+      "benchmark",
+      "test set"
+    ],
+    "title": "A “{anchor}” is promised, but the evaluation metric, test set and baseline are not defined",
+    "why": "Without an agreed metric and baseline, nobody can say whether the model is good enough to ship.",
+    "question": "What metric, test set and baseline define success for the “{anchor}”?",
+    "owner": "ML lead / Product",
+    "nextStep": "Fix the metric, the holdout set and a simple baseline before modelling starts.",
+    "disproof": "A metric, test-set or baseline definition for the “{anchor}”.",
+    "category": "QUESTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 4,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Shipping a model that does not work",
+      "irreversibility": "Rework after the fact",
+      "cost": "A decision and a document"
+    }
+  },
+  {
+    "id": "drift",
+    "label": "Drift monitoring and retraining",
+    "group": "launch-readiness",
+    "anchors": [
+      "production",
+      "deploy",
+      "inference",
+      "serving",
+      "real-time",
+      "live"
+    ],
+    "keywords": [
+      "drift",
+      "monitoring",
+      "retrain",
+      "shadow mode",
+      "canary",
+      "performance decay"
+    ],
+    "title": "The model goes to “{anchor}”, but drift monitoring and retraining are not planned",
+    "why": "Real-world data changes; a model that is not monitored degrades quietly.",
+    "question": "How will you detect that the model is getting worse in “{anchor}”, and who retrains it?",
+    "owner": "ML platform lead",
+    "nextStep": "Define monitoring metrics and a retrain trigger before launch.",
+    "disproof": "A drift monitoring, shadow-mode or retraining plan for “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Silent degradation",
+      "irreversibility": "Decisions made on bad predictions",
+      "cost": "Tooling plus ownership"
+    }
+  },
+  {
+    "id": "bias-privacy",
+    "label": "Bias and privacy",
+    "group": "compliance",
+    "anchors": [
+      "users",
+      "customers",
+      "patients",
+      "applicants",
+      "personal",
+      "employees"
+    ],
+    "keywords": [
+      "bias",
+      "fairness",
+      "demographic",
+      "pii",
+      "differential privacy",
+      "anonymi",
+      "consent",
+      "dpia"
+    ],
+    "title": "The model uses data about “{anchor}”, but fairness and privacy checks are not mentioned",
+    "why": "Models that affect people attract scrutiny for bias and misuse of personal data.",
+    "question": "How will you test for unequal outcomes across groups of “{anchor}”, and what consent covers the data?",
+    "owner": "Responsible-AI owner / Legal",
+    "nextStep": "Add fairness slices to the evaluation and record consent and retention.",
+    "disproof": "A fairness, bias or privacy review covering “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 4,
+      "proximity": 3,
+      "cost": 3
+    },
+    "justifications": {
+      "impact": "Reputational and legal harm",
+      "irreversibility": "Public harm is hard to reverse",
+      "cost": "Extra evaluation and review"
+    }
+  },
+  {
+    "id": "lineage",
+    "label": "Data lineage and reproducibility",
+    "group": "data-integrity",
+    "anchors": [
+      "pipeline",
+      "etl",
+      "dataset",
+      "features",
+      "feature store"
+    ],
+    "keywords": [
+      "lineage",
+      "versioning",
+      "dvc",
+      "reproducib",
+      "data catalog",
+      "schema contract",
+      "provenance"
+    ],
+    "title": "The “{anchor}” feeds results, but data versions and lineage are not tracked",
+    "why": "Without versioned data you cannot reproduce a result or explain a change in the output.",
+    "question": "Can you rebuild exactly the dataset used for any past “{anchor}” result?",
+    "owner": "Data engineering lead",
+    "nextStep": "Version datasets and record transformations for each model run.",
+    "disproof": "A versioning, lineage or reproducibility mechanism for the “{anchor}”.",
+    "category": "DATA_ISSUE",
+    "factors": {
+      "impact": 3,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Unexplainable results",
+      "irreversibility": "Lost history cannot be reconstructed",
+      "cost": "Tooling decision"
+    }
+  },
+  {
+    "id": "cost-latency",
+    "label": "Cost and latency budget",
+    "group": "design",
+    "anchors": [
+      "inference",
+      "gpu",
+      "real-time",
+      "api",
+      "serving",
+      "latency"
+    ],
+    "keywords": [
+      "latency budget",
+      "cost per",
+      "gpu budget",
+      "throughput",
+      "p95",
+      "sla",
+      "unit cost"
+    ],
+    "title": "The system relies on “{anchor}”, but no cost or latency budget is set",
+    "why": "Models that work in a notebook can be too slow or too expensive to serve.",
+    "question": "What latency and cost per request must “{anchor}” meet, and has it been measured?",
+    "owner": "ML platform lead",
+    "nextStep": "Set budgets and measure a prototype against them.",
+    "disproof": "A latency, throughput or per-request cost target for “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 3,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 2
+    },
+    "justifications": {
+      "impact": "Unviable unit economics",
+      "irreversibility": "Architecture change late",
+      "cost": "Measurement exercise"
+    }
+  }
+]

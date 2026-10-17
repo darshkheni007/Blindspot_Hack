@@ -1,0 +1,9 @@
+Item,Category,Amount (USD),Notes
+Engineering team (6 FTE x 7 months),Labour,168000,Loaded cost
+QA analyst,Labour,24000,
+Cloud hosting (3 environments),Infrastructure,36000,Annual
+Tax provider licence,Licence,42000,EU and UK
+Data migration tooling,Tooling,30000,
+Customer communications,Marketing,18000,
+Contingency,Reserve,35000,10 percent
+Total,,360000,Needs review

@@ -1,0 +1,10 @@
+.next
+node_modules
+src/generated
+storage
+.env
+test-results
+playwright-report
+*.tsbuildinfo
+next-env.d.ts
+.e2e-storage

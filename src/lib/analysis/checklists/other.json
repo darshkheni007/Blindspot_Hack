@@ -1,0 +1,195 @@
+[
+  {
+    "id": "decision-owner",
+    "label": "Decision owner and sign-off",
+    "group": "governance",
+    "anchors": [
+      "sign-off",
+      "sign off",
+      "steering",
+      "sponsor",
+      "decision"
+    ],
+    "keywords": [
+      "raci",
+      "decision owner",
+      "sign-off authority",
+      "escalation path",
+      "steering committee",
+      "approver"
+    ],
+    "title": "The documents refer to a decision point (“{anchor}”), but no one is named as the final decision owner",
+    "why": "Unowned decisions stall work and get re-opened late. Naming the owner early is the cheapest risk reduction.",
+    "question": "Who has the final say on “{anchor}”, and how are disagreements escalated?",
+    "owner": "Project sponsor",
+    "nextStep": "Name one decision owner per major decision.",
+    "disproof": "A named approver, RACI or escalation path for “{anchor}”.",
+    "category": "QUESTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Stalled decisions",
+      "irreversibility": "Late reversals waste work",
+      "cost": "One conversation"
+    }
+  },
+  {
+    "id": "success-criteria",
+    "label": "Success criteria",
+    "group": "governance",
+    "anchors": [
+      "goal",
+      "objective",
+      "outcome"
+    ],
+    "keywords": [
+      "success criteria",
+      "kpi",
+      "acceptance criteria",
+      "definition of done",
+      "okr",
+      "target"
+    ],
+    "title": "The project goal is stated (“{anchor}”), but no measurable success criteria are written down",
+    "why": "Without agreed criteria, finishing becomes a matter of opinion.",
+    "question": "How will we know the “{anchor}” has succeeded, in numbers?",
+    "owner": "Project sponsor",
+    "nextStep": "Write 3-5 measurable success criteria.",
+    "disproof": "A KPI, acceptance criterion or definition of done for the “{anchor}”.",
+    "category": "QUESTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Disputed delivery",
+      "irreversibility": "Work wasted on the wrong target",
+      "cost": "A short workshop"
+    }
+  },
+  {
+    "id": "dependencies",
+    "label": "Dependency tracking",
+    "group": "schedule-budget",
+    "anchors": [
+      "depends on",
+      "dependency",
+      "dependencies",
+      "third party",
+      "external",
+      "supplier",
+      "vendor"
+    ],
+    "keywords": [
+      "dependency register",
+      "critical path",
+      "dependency owner",
+      "supplier sla",
+      "lead time"
+    ],
+    "title": "The plan relies on a “{anchor}”, but no owner or lead time is recorded",
+    "why": "External dependencies are outside your control and are the most common cause of silent delay.",
+    "question": "Who owns the “{anchor}” and what is its committed date?",
+    "owner": "Project manager",
+    "nextStep": "List each dependency with an owner, date and fallback.",
+    "disproof": "A dependency register or committed date for the “{anchor}”.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 3,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Delays outside your control",
+      "irreversibility": "Lost time is not recoverable",
+      "cost": "Admin"
+    }
+  },
+  {
+    "id": "stakeholder-comms",
+    "label": "Stakeholder communication",
+    "group": "governance",
+    "anchors": [
+      "stakeholder",
+      "client",
+      "sponsor",
+      "board",
+      "customer"
+    ],
+    "keywords": [
+      "communication plan",
+      "stakeholder map",
+      "status report",
+      "cadence",
+      "steering committee"
+    ],
+    "title": "Several groups are affected (“{anchor}”), but no communication plan is described",
+    "why": "Surprises damage trust faster than bad news does.",
+    "question": "Who needs to hear what, how often, regarding the “{anchor}”?",
+    "owner": "Project manager",
+    "nextStep": "Draft a simple communication cadence.",
+    "disproof": "A communication plan or reporting cadence.",
+    "category": "ASSUMPTION",
+    "factors": {
+      "impact": 3,
+      "likelihood": 3,
+      "irreversibility": 1,
+      "proximity": 2,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Misaligned expectations",
+      "irreversibility": "Trust damage",
+      "cost": "Short document"
+    }
+  },
+  {
+    "id": "buffer",
+    "label": "Contingency / buffer",
+    "group": "schedule-budget",
+    "anchors": [
+      "deadline",
+      "timeline",
+      "schedule",
+      "budget",
+      "launch date"
+    ],
+    "keywords": [
+      "contingency",
+      "buffer",
+      "float",
+      "slack",
+      "reserve",
+      "risk register"
+    ],
+    "title": "A fixed date or amount is set (“{anchor}”), but no contingency or buffer is included",
+    "why": "Plans without slack turn every small delay into a missed commitment.",
+    "question": "How much contingency is built into the “{anchor}”, and who can release it?",
+    "owner": "Project manager",
+    "nextStep": "Add explicit buffer to the schedule and budget.",
+    "disproof": "A contingency, buffer or float allowance for the “{anchor}”.",
+    "category": "CONSTRAINT",
+    "factors": {
+      "impact": 4,
+      "likelihood": 4,
+      "irreversibility": 2,
+      "proximity": 3,
+      "cost": 1
+    },
+    "justifications": {
+      "impact": "Missed commitments",
+      "irreversibility": "Rework to the plan",
+      "cost": "Planning exercise"
+    }
+  }
+]

@@ -1,7 +1,7 @@
 .next
 node_modules
 src/generated
-storage
+/storage/
 .env
 test-results
 playwright-report
